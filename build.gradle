@@ -1,0 +1,43 @@
+apply from: "http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin"
+apply plugin: 'idea'
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+jar {
+    from {[
+            zipTree("build/libs/json-simple-1.1.jar"),
+			zipTree("build/libs/logback-classic-1.1.3.jar"),
+			zipTree("build/libs/logback-core-1.1.3.jar"),
+			zipTree("build/libs/slf4j-api-1.7.12.jar")
+    ]}
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.3'
+    compile 'com.googlecode.json-simple:json-simple:1.1'
+}
+
+javafx {
+    //javaRuntime = '/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk'
+    mainClass 'org.flycraft.vktoppicpicker.TopPicPicker'
+	
+    appName = 'VKontakteTopPicPicker'
+	
+    //jvmArgs = ['-XX:+AggressiveOpts', '-XX:CompileThreshold=1']
+}
